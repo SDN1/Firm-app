@@ -1,13 +1,16 @@
 package com.mentormate.controller;
 
-import com.mentormate.dto.BalanceTransferDTO;
+import com.mentormate.dto.PersonDTO;
 import com.mentormate.dto.TransferBalanceDTO;
 import com.mentormate.entity.Person;
 import com.mentormate.service.impl.PersonServiceImpl;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,18 +23,23 @@ public class PersonController {
         return personService.getAllPersons();
     }
 
+    @GetMapping("/persons-pageable")
+    public Page<Person> getAllPersonsPageable(Pageable pageable) {
+        return personService.getAllPersons(pageable);
+    }
+
     @GetMapping("/persons/{id}")
     public Person getPerson(@PathVariable Integer id) throws NotFoundException {
         return personService.getPerson(id);
     }
 
     @PostMapping(value = "/persons")
-    public void addPerson(@RequestBody Person person) throws NotFoundException {
-        personService.addPerson(person);
+    public void addPerson(@Valid @RequestBody PersonDTO personDTO) throws NotFoundException {
+        personService.addPerson(personDTO);
     }
 
     @PutMapping(value = "/persons/{id}")
-    public void updatePerson(@RequestBody Person person, @PathVariable Integer id) throws NotFoundException {
+    public void updatePerson(@Valid @RequestBody Person person, @PathVariable Integer id) throws NotFoundException {
         personService.updatePerson(id, person);
     }
 
@@ -41,7 +49,7 @@ public class PersonController {
     }
 
     @PostMapping(value = "persons/transfer-balance")
-    public void transferBalanceBetweenFirm(@RequestBody TransferBalanceDTO transferBalanceDTO) throws NotFoundException {
+    public void transferBalanceBetweenFirm(@Valid @RequestBody TransferBalanceDTO transferBalanceDTO) throws NotFoundException {
         personService.transferBalanceTo(transferBalanceDTO);
     }
 }

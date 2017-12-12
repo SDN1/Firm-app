@@ -23,27 +23,30 @@ public class Person implements Serializable {
     @Column(name = "person_id")
     private Integer personId;
 
-    @NotEmpty(message = "first name can not be null or empty.")
+    @NotNull(message = "firstName field can not be null or empty.")
     private String firstName;
 
-    @NotNull(message = "middle name firm name can not be null.")
+    @NotNull(message = "middleName field can not be null or empty.")
     private String middleName;
 
-    @NotEmpty(message = "last name can not be null or empty.")
+    @NotNull(message = "lastName field can not be null or empty.")
     private String lastName;
 
-    @NotEmpty(message = "gender can not be null or empty.")
+    @NotNull(message = "gender field can not be null or empty.")
     private String gender;
 
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+    @NotNull(message = "birthday field can not be null or empty.")
     private Date birthday;
 
     @ManyToOne
     @JoinColumn(name = "address_id")
+    @NotNull(message = "address field can not be null or empty.")
     private Address address;
 
     @ManyToOne
     @JoinColumn(name = "contact_id")
+    @NotNull(message = "contact field can not be null or empty.")
     private Contact contact;
 
     @JsonIgnore

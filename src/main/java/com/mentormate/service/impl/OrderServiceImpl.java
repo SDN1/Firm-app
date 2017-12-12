@@ -6,13 +6,13 @@ import com.mentormate.entity.Orders;
 import com.mentormate.repository.FirmRepository;
 import com.mentormate.repository.OrderRepository;
 import com.mentormate.service.OrderService;
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static java.time.LocalDate.parse;
@@ -34,10 +34,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Orders getOrder(Integer id) throws NotFoundException {
+    public Page<Orders> getAllOrders(Pageable pageable) {
+        return orderRepository.findAll(pageable);
+    }
+
+    @Override
+    public Orders getOrder(Integer id) {
         Orders order = orderRepository.findOne(id);
         if(order == null) {
-            throw new NotFoundException("Operation get failed. Order with id=" + id + " Not Found!");
+            throw new EntityNotFoundException("Operation get failed. Order with id=" + id + " Not Found!");
         }
         else {
             return order;
@@ -45,11 +50,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void addOrder(Orders order) throws NotFoundException {
-
+    public void addOrder(Orders order) {
         Firm firm = firmRepository.findOne(order.getFirm().getFirmId());
         if(firm == null) {
-            throw new NotFoundException("Operation add failed. Firm with id=" + order.getFirm().getFirmId() + " Not Found!");
+            throw new EntityNotFoundException("Operation add failed. Firm with id=" + order.getFirm().getFirmId() + " Not Found!");
         }
         else {
             order.setFirm(firm);
@@ -58,29 +62,29 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void updateOrder(Integer id, Orders order) throws NotFoundException {
+    public void updateOrder(Integer id, Orders order) {
         Orders orderExists = orderRepository.findOne(id);
         Firm firm = firmRepository.findOne(order.getFirm().getFirmId());
 
         if(orderExists == null) {
-            throw new NotFoundException("Operation update failed. Order with id=" + id + " Not Found!");
+            throw new EntityNotFoundException("Operation update failed. Order with id=" + id + " Not Found!");
         }
         else if(firm == null){
-            throw new NotFoundException("Operation update failed. Given Firm  id=" + order.getFirm().getFirmId() + " Not Found!");
+            throw new EntityNotFoundException("Operation update failed. Given Firm  id=" + order.getFirm().getFirmId() + " Not Found!");
         }
         else {
-            order.setOrder_id(id);
+            order.setOrderId(id);
             order.setFirm(firm);
             orderRepository.save(order);
         }
     }
 
     @Override
-    public void deleteOrder(Integer id) throws NotFoundException {
+    public void deleteOrder(Integer id) {
         Orders order = orderRepository.findOne(id);
 
         if(order == null) {
-            throw new NotFoundException("Operation delete failed. Order with id=" + id + " Not Found!");
+            throw new EntityNotFoundException("Operation delete failed. Order with id=" + id + " Not Found!");
         }
         else {
             orderRepository.delete(id);
@@ -94,15 +98,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Orders> getPurchasesOrdersForFirm(Integer firmId) {
-
         return orderRepository.findAllByFirm_FirmIdAndOrderTypeFalse(firmId);
     }
 
     @Override
-    public String getProfitForFirmBetweenDates(FirmProfitDTO firmProfitDTO) throws NotFoundException {
+    public String getProfitForFirmBetweenDates(FirmProfitDTO firmProfitDTO){
         Integer firmId = firmProfitDTO.getFirmId();
         if(!firmRepository.exists(firmId)) {
-            throw new NotFoundException("Firm with id=" + firmId + " Not found.");
+            throw new EntityNotFoundException("Firm with id=" + firmId + " Not found.");
         }
         Date startDate = firmProfitDTO.getStartDate();
         Date endDate = firmProfitDTO.getEndDate();

@@ -5,8 +5,11 @@ import com.mentormate.entity.Orders;
 import com.mentormate.service.impl.OrderServiceImpl;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -19,18 +22,23 @@ public class OrderController {
         return orderService.getAllOrders();
     }
 
+    @GetMapping(value = "/orders-pageable")
+    public Page<Orders> getAllOrdersPageable(Pageable pageable) {
+        return orderService.getAllOrders(pageable);
+    }
+
     @GetMapping("/orders/{id}")
-    public Orders getOrder(@PathVariable Integer id) throws NotFoundException {
+    public Orders getOrder(@PathVariable Integer id) {
         return orderService.getOrder(id);
     }
 
     @PostMapping(value = "/orders")
-    public void addOrder(@RequestBody Orders order) throws NotFoundException {
+    public void addOrder(@Valid @RequestBody Orders order) throws NotFoundException {
         orderService.addOrder(order);
     }
 
     @PutMapping(value = "/orders/{id}")
-    public void updateOrder(@RequestBody Orders order, @PathVariable Integer id) throws NotFoundException {
+    public void updateOrder(@Valid @RequestBody Orders order, @PathVariable Integer id) throws NotFoundException {
         orderService.updateOrder(id, order);
     }
 
@@ -50,7 +58,7 @@ public class OrderController {
     }
 
     @PostMapping(value = "/orders/profit-between")
-    public String getProfitForFirmBetweenDates(@RequestBody FirmProfitDTO firmProfitDTO) throws NotFoundException {
+    public String getProfitForFirmBetweenDates(@Valid @RequestBody FirmProfitDTO firmProfitDTO) throws NotFoundException {
         return orderService.getProfitForFirmBetweenDates(firmProfitDTO);
     }
 }

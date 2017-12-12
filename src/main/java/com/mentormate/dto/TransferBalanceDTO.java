@@ -1,16 +1,31 @@
 package com.mentormate.dto;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.*;
+
 public class TransferBalanceDTO {
+    @Min(1)
+    @NotNull(message = "idOfpersonSenderMoney field can not be null or empty.")
     private Integer idOfpersonSenderMoney;
+
+    @Pattern(regexp="[\\d]{9}")
+    @NotNull(message = "bulstaOfCompanySenderMoney field can not be null or empty.")
     private String bulstaOfCompanySenderMoney;
 
+    @Min(1)
+    @NotNull(message = "idOfpersonSenderMoney field can not be null or empty.")
     private Integer idOfPersonReceivesMoney;
+
+    @Pattern(regexp="[\\d]{9}")
+    @NotNull(message = "bulstatOfCompanyReceivesMoney field can not be null or empty.")
     private String bulstatOfCompanyReceivesMoney;
 
+    @DecimalMin("10.00")
+    @NotNull(message = "quantity field can not be null or empty.")
     private Float quantity;
 
     TransferBalanceDTO() {
-
     }
 
     public TransferBalanceDTO(Integer idOfpersonSenderMoney, String bulstaOfCompanySenderMoney,

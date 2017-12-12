@@ -1,10 +1,13 @@
 package com.mentormate.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -18,20 +21,20 @@ public class Address implements Serializable {
     @Column(name = "address_id")
     private Integer address_id;
 
-    @NotNull(message = "country field can not be null or empty.")
+    @NotNull(message = "country field can not be null.")
     private String country;
 
-    @NotNull(message = "city field can not be null or empty.")
+    @NotNull(message = "city field can not be null.")
     private String city;
 
-    @NotNull(message = "street field can not be null or empty.")
+    @NotNull(message = "street field can not be null.")
     private String street;
 
-    @NotNull(message = "street-number field can not be null or empty.")
+    @NotNull(message = "street-number field can not be null.")
     private String streetNumber;
 
+    @Pattern(regexp="[\\d]{4}")
     @NotNull(message = "postal code field can not be null.")
-    @Min(4)
     private String postalCode;
 
     public Address() {

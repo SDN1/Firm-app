@@ -2,13 +2,14 @@ package com.mentormate.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import net.minidev.json.annotate.JsonIgnore;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Entity
 @Table(name = "firm")
@@ -22,28 +23,31 @@ public class Firm implements Serializable {
     private Integer firmId;
 
     @Column(name = "name")
-    @NotNull(message = "name field can not be null or empty.")
+    @NotNull(message = "name field can not be null.")
     private String name;
 
     @Column(name = "bulstat")
-    @NotNull(message = "bulstat field can not be null or empty.")
+    @Pattern(regexp="[\\d]{9}")
+    @NotNull(message = "bulstat field can not be null.")
     private String bulstat;
 
     @Column(name = "is_active")
-    @NotNull(message = "is-active field can not be null or empty.")
+    @NotNull(message = "isActive field can not be null.")
     private Boolean isActive;
 
     @Column(name = "balance")
-    @NotNull(message = "balance field can not be null or empty.")
-    @Min(0)
+    @DecimalMin(value = "0.00")
+    @NotNull(message = "balance field can not be null.")
     private Float balance;
 
     @ManyToOne
     @JoinColumn(name = "address_id")
+    @NotNull(message = "address field can not be null.")
     private Address address;
 
     @ManyToOne
     @JoinColumn(name = "contact_id")
+    @NotNull(message = "contact field can not be null.")
     private Contact contact;
 
     @JsonIgnore

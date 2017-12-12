@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
@@ -26,7 +28,8 @@ public class Part {
     @JoinColumn(name = "firm_id")
     private Firm firm;
 
-    @Max(100)
+    @DecimalMax("100.00")
+    @NotNull(message = "percents field can not be null.")
     private Float percents;
 
     public Part() {

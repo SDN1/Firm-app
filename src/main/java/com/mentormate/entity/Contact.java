@@ -19,20 +19,20 @@ public class Contact implements Serializable {
     @Column(name = "contact_id")
     private Integer contact_id;
 
-    @NotEmpty(message = "phone number field can not be null or empty.")
+    @NotNull(message = "phoneNumber field can not be null.")
     private String phoneNumber;
 
-    @NotEmpty(message = "email field can not be null or empty.")
+    @NotNull(message = "emailAddress field can not be null.")
     @Email(message = "This is a not valid email.")
     private String emailAddress;
 
-    @NotNull(message = "website field field can not be null.")
+    @NotNull(message = "webSiteURL field can not be null.")
     private String webSiteURL;
 
-    @NotNull(message = "linked url field can not be null.")
+    @NotNull(message = "linkedInURL field can not be null.")
     private String linkedInURL;
 
-    @NotNull(message = "facebook url field can not be null.")
+    @NotNull(message = "facebookURL field can not be null.")
     private String facebookURL;
 
     public Contact() {
