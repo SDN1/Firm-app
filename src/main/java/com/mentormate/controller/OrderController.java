@@ -7,6 +7,7 @@ import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -33,6 +34,7 @@ public class OrderController {
     }
 
     @PostMapping(value = "/orders")
+    @ResponseStatus(HttpStatus.CREATED)
     public void addOrder(@Valid @RequestBody Orders order) throws NotFoundException {
         orderService.addOrder(order);
     }

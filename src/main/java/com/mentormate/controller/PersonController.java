@@ -8,6 +8,7 @@ import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -34,6 +35,7 @@ public class PersonController {
     }
 
     @PostMapping(value = "/persons")
+    @ResponseStatus(HttpStatus.CREATED)
     public void addPerson(@Valid @RequestBody PersonDTO personDTO) throws NotFoundException {
         personService.addPerson(personDTO);
     }

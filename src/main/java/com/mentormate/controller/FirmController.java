@@ -6,6 +6,8 @@ import com.mentormate.service.impl.FirmServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -32,6 +34,7 @@ public class FirmController {
     }
 
     @PostMapping(value = "/firms")
+    @ResponseStatus(HttpStatus.CREATED)
     public void addFirm(@Valid @RequestBody FirmDTO firmDTO){
         firmService.addFirm(firmDTO);
     }

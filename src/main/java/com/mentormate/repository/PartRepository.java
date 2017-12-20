@@ -11,6 +11,5 @@ import java.util.List;
 public interface PartRepository extends JpaRepository<Part, Integer> {
 	//@Query(value = "SELECT p FROM Part p WHERE p.person.personId = ?1")
 	public List<Part> findAllByPerson_PersonId(Integer id);
-
 	public List<Part> findAllByFirm_FirmId(Integer id);
 }

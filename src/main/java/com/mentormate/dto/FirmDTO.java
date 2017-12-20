@@ -1,6 +1,5 @@
 package com.mentormate.dto;
 
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.*;
 

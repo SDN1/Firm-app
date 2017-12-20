@@ -1,5 +1,6 @@
-package com.mentormate.exception;
+package com.mentormate.controller;
 
+import com.mentormate.exception.ExceptionResponse;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,7 @@ import javax.persistence.EntityNotFoundException;
 import java.sql.SQLException;
 
 @ControllerAdvice
-public class RestExceptionHandler {
+public class ExceptionController {
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ExceptionResponse> handleEntityNotFound(EntityNotFoundException ex) {

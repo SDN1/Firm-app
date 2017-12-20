@@ -69,6 +69,21 @@ public class Firm implements Serializable {
         this.parts = parts;
     }
 
+    public Firm(Integer firmId, String name, String bulstat, Boolean isActive, Float balance) {
+        this.firmId = firmId;
+        this.name = name;
+        this.bulstat = bulstat;
+        this.isActive = isActive;
+        this.balance = balance;
+    }
+    public Firm(String name, String bulstat, Boolean isActive, Float balance) {
+        this.firmId = firmId;
+        this.name = name;
+        this.bulstat = bulstat;
+        this.isActive = isActive;
+        this.balance = balance;
+    }
+
     public Integer getFirmId() {
         return firmId;
     }
