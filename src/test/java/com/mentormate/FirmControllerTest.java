@@ -89,8 +89,8 @@ public class FirmControllerTest {
 
     @Test
     public void canCreateANewFirm() {
-        int addressId = 42;
-        int contactId = 42;
+        int addressId = 1;
+        int contactId = 1;
         ResponseEntity<Firm> firmResponseEntity = testRestTemplate.postForEntity("/firms", new FirmDTO("SDN Company", "348156754", true, 10F, addressId, contactId), Firm.class);
         Assertions.assertThat(firmResponseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
     }

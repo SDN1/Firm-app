@@ -31,4 +31,6 @@ mvnw.cmd
 *.iml
 *.classpath
 *.project
-.target
+target
+
+
