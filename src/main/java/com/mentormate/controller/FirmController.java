@@ -28,6 +28,16 @@ public class FirmController {
         return firmService.getAllFirms(pageable);
     }
 
+    @GetMapping(value = "/firms-pageable1")
+    public Page<Firm> getAllFirmsPageable1(Pageable pageable) {
+        return firmService.getAllFirms(pageable);
+    }
+
+    @GetMapping(value = "/firms-pageable2")
+    public Page<Firm> getAllFirmsPageable2(Pageable pageable) {
+        return firmService.getAllFirms(pageable);
+    }
+
     @GetMapping("/firms/{id}")
     public Firm getFirm(@PathVariable Integer id) {
         return firmService.getFirm(id);
