@@ -23,6 +23,16 @@ public class FirmController {
         return firmService.getAllFirms();
     }
 
+    @GetMapping("/firm1s")
+    public List<Firm> getAllFirms1() {
+        return firmService.getAllFirms();
+    }
+
+    @GetMapping("/firms2")
+    public List<Firm> getAllFirms2() {
+        return firmService.getAllFirms();
+    }
+
     @GetMapping(value = "/firms-pageable")
     public Page<Firm> getAllFirmsPageable(Pageable pageable) {
         return firmService.getAllFirms(pageable);
